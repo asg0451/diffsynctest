@@ -10,7 +10,7 @@ var users = require('./routes/user');
 
 var app = express();
 
-var diffSyncStuff = require('./diff-sync-stuff.js')(app);
+var diffSyncSetupAdapter = require('./diff-sync-stuff.js')(app); // returns dataAdapter
 
 var env = process.env.NODE_ENV || 'development';
 app.locals.ENV = env;
