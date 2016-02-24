@@ -9,7 +9,7 @@ var client = new DiffSyncClient(socket('http://' + window.location.hostname + ':
 
 var data = {};
 
-var textarea;
+var textarea = {};
 
 client.on('connected', function(){
     // the initial data has been loaded,
