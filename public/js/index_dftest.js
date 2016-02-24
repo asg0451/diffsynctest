@@ -14,6 +14,7 @@ var textarea;
 client.on('connected', function(){
     // the initial data has been loaded,
     // you can initialize your application
+    if(!textarea) textarea = document.getElementById('dataArea');
     data = client.getData();
     console.log('connected');
 });
@@ -21,12 +22,14 @@ client.on('connected', function(){
 client.on('synced', function(){
     // an update from the server has been applied
     // you can perform the updates in your application now
+    if(!textarea) textarea = document.getElementById('dataArea');
     textarea.value = data.textValue;
 });
 
 client.initialize();
 
 var syncTextArea = function() {
+    if(!textarea) textarea = document.getElementById('dataArea');
     data.textValue = textarea.value;
     client.sync();
 }
