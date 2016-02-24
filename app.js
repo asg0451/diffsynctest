@@ -14,7 +14,6 @@ var app = express();
 
 var database = require('./database.js')(); // doc model
 var sqliteDataAdapter = require('./sqlite-adapter.js'); // adapter as per example
-console.log('sda: ' + sqliteDataAdapter);
 var diffSyncSetupAdapter = require('./diff-sync-stuff.js')(app, sqliteDataAdapter, database); // returns dataAdapter
 
 /////
