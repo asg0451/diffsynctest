@@ -12,8 +12,6 @@ var diffSyncStuff = function(app, adapter, db) {
         var dataAdapter = new adapter(db);
     }
 
-    var dataAdapter = new diffSync.InMemoryDataAdapter();
-
     // setting up the diffsync server
     var diffSyncServer = new diffSync.Server(dataAdapter, io);
 
