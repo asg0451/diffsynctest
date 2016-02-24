@@ -10,7 +10,14 @@ var users = require('./routes/user');
 
 var app = express();
 
-var diffSyncSetupAdapter = require('./diff-sync-stuff.js')(app); // returns dataAdapter
+////
+
+var database = require('./database.js')(); // doc model
+var sqliteDataAdapter = require('./sqlite-adapter.js'); // adapter as per example
+console.log('sda: ' + sqliteDataAdapter);
+var diffSyncSetupAdapter = require('./diff-sync-stuff.js')(app, sqliteDataAdapter, database); // returns dataAdapter
+
+/////
 
 var env = process.env.NODE_ENV || 'development';
 app.locals.ENV = env;

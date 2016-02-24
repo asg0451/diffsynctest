@@ -10,7 +10,7 @@ var socket = window.io // || require('socket.io-client')
 // pass the connection and the id of the data you want to synchronize
 var client = new DiffSyncClient(socket('http://' + window.location.hostname + ':4000'), id);
 
-var data;
+var data = {};
 
 client.on('connected', function(){
     // the initial data has been loaded,
@@ -34,3 +34,9 @@ var syncTextArea = function() {
     data.textValue = textarea.value;
     client.sync();
 }
+
+document.onload = function() {
+    data = {
+        textValue: 'init'
+    }
+};
