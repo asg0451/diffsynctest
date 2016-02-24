@@ -32,3 +32,9 @@ var syncTextArea = function() {
 }
 
 setInterval(syncTextArea, 300);
+
+document.onload = function() {
+    data = {
+        textValue: 'init'
+    }
+};
