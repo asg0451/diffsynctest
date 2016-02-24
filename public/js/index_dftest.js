@@ -9,7 +9,7 @@ var client = new DiffSyncClient(socket('http://' + window.location.hostname + ':
 
 var data = {};
 
-var textarea = document.getElementById('dataArea');
+var textarea;
 
 client.on('connected', function(){
     // the initial data has been loaded,
@@ -36,5 +36,6 @@ setInterval(syncTextArea, 300);
 document.onload = function() {
     data = {
         textValue: 'init'
-    }
+    };
+    textarea = document.getElementById('dataArea');
 };
