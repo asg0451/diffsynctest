@@ -9,6 +9,8 @@ var client = new DiffSyncClient(socket('http://' + window.location.hostname + ':
 
 var data = {};
 
+var textarea = document.getElementById('dataArea');
+
 client.on('connected', function(){
     // the initial data has been loaded,
     // you can initialize your application
@@ -19,23 +21,14 @@ client.on('connected', function(){
 client.on('synced', function(){
     // an update from the server has been applied
     // you can perform the updates in your application now
-    console.log('synced');
-    var textarea = document.getElementById('dataArea');
     textarea.value = data.textValue;
 });
 
 client.initialize();
 
 var syncTextArea = function() {
-    var textarea = document.getElementById('dataArea');
     data.textValue = textarea.value;
     client.sync();
 }
 
 setInterval(syncTextArea, 300);
-
-document.onload = function() {
-    data = {
-        textValue: 'init'
-    }
-};

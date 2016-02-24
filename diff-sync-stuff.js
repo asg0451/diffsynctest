@@ -4,7 +4,6 @@ var diffSyncStuff = function(app, adapter, db) {
 
     var http = require('http').Server(app);
     var io = require('socket.io')(http);
-    // setting up diffsync's DataAdapter
     var diffSync    = require('diffsync');
 
     if(!adapter) {
@@ -12,6 +11,8 @@ var diffSyncStuff = function(app, adapter, db) {
     } else {
         var dataAdapter = new adapter(db);
     }
+
+    var dataAdapter = new diffSync.InMemoryDataAdapter();
 
     // setting up the diffsync server
     var diffSyncServer = new diffSync.Server(dataAdapter, io);
