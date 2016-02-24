@@ -1,11 +1,8 @@
 var id = 'pooptest';
 
-// if installed from standalone script or browserify / webpack
 var DiffSyncClient = diffsync.Client || require('diffsync').Client
 
-// socket.io standalone or browserify / webpack
-var socket = window.io // || require('socket.io-client')
-
+var socket = window.io || require('socket.io-client')
 
 // pass the connection and the id of the data you want to synchronize
 var client = new DiffSyncClient(socket('http://' + window.location.hostname + ':4000'), id);
@@ -34,6 +31,8 @@ var syncTextArea = function() {
     data.textValue = textarea.value;
     client.sync();
 }
+
+setInterval(syncTextArea, 300);
 
 document.onload = function() {
     data = {
