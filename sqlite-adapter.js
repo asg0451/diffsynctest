@@ -16,13 +16,15 @@ SqliteDataAdapter.prototype.getData = function(id, callback){
         if(!data) {
             console.log('creating entry with id: ' + id);
             doc.create({
-                _id: id,
-//                textValue: data.textValue
-            }).then(newData => callback(null, {textValue: newData.textValue}));
+                _id: id
+            }).then(newData => {
+                console.log('newdata: ' + JSON.stringify(newData, null, 4));
+                callback(null, {textValue: newData.textValue});
+            });
         }
         else {
-            console.log('found entry: ' + JSON.stringify({textValue: data.textValue}));
-            callback(null, {textValue: data.textValue}); // i guess
+            console.log('found entry: ' + JSON.stringify(data, null, 4));
+            callback(null, data); // i guess
         }
     });
 
@@ -31,7 +33,7 @@ SqliteDataAdapter.prototype.getData = function(id, callback){
 SqliteDataAdapter.prototype.storeData = function(id, data, callback){
     // we override the document in any way
     //    delete data._rev;
-    console.log('storing data with id ' + id + ': '+ JSON.stringify(data));
+    console.log('storing data with id ' + id + ': '+ JSON.stringify(data, null, 4));
 
     var doc = this.database;
     var tv = data.textValue;
@@ -45,18 +47,6 @@ SqliteDataAdapter.prototype.storeData = function(id, data, callback){
             _id: id
         }
     }).then(data => callback(null, data));
-
-    // doc.destroy({
-    //     where: {
-    //         _id: id
-    //     }
-    // });
-    // doc.create({
-    //     _id: id,
-    //     textValue: tv
-    // }).then(function(data) {
-    //     callback(null, data);
-    // })
 
     return true;
 };
