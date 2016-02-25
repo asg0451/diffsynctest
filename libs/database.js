@@ -16,7 +16,7 @@ var setupDB = function() {
         storage: './dstest.sqlite'
     });
 
-    var model = require('./ds-model.js').model;
+    var model = require('../models/ds-model.js').model;
 
     var Doc = sequelize.define('doc', model, {
         freezeTableName: true // Model tableName will be the same as the model name

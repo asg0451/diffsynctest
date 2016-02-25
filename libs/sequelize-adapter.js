@@ -1,4 +1,4 @@
-var modelInfo = require('./ds-model.js');
+var modelInfo = require('../models/ds-model.js');
 
 var SqliteDataAdapter = function(database){
     if(!database){ throw new Error('Need to specify a database'); }
@@ -7,7 +7,7 @@ var SqliteDataAdapter = function(database){
 };
 
 SqliteDataAdapter.prototype.getData = function(id, callback){
-    // uses sequelize. this.database = Doc.
+    // uses sequelize. this.database = our from database.js
     console.log('getting data: ' + id);
     var doc = this.database;
     doc.findOne({
@@ -16,29 +16,28 @@ SqliteDataAdapter.prototype.getData = function(id, callback){
         }
     }).then(function(data) {
         if(!data) {
-            console.log('creating entry with id: ' + id);
+            console.log('entry not found. adding entry with id: ' + id);
             doc.create({
                 _id: id
             }).then(newData => {
-                console.log('newdata: ' + JSON.stringify(newData, null, 4));
+                console.log('new entry: ' + JSON.stringify(newData, null, 4));
                 callback(null, {textValue: newData.textValue});
             });
         }
         else {
             console.log('found entry: ' + JSON.stringify(data, null, 4));
-            callback(null, data); // i guess
+            callback(null, data); // no error checking right now...
         }
     });
 
 };
 
 SqliteDataAdapter.prototype.storeData = function(id, data, callback){
-    // we override the document in any way
-    //    delete data._rev;
+
     console.log('storing data with id ' + id + ': '+ JSON.stringify(data, null, 4));
 
     var doc = this.database;
-    //    var tv = data.textValue;
+
     var updateObj = {};
     for(f of modelInfo.fields) {
         if(data.hasOwnProperty(f)) { // only update things data actually has (bad idea?)
@@ -47,9 +46,7 @@ SqliteDataAdapter.prototype.storeData = function(id, data, callback){
         }
     }
 
-    console.log('uo: ' + JSON.stringify(updateObj, null, 4));
-
-    var retval = {};
+    console.log('updating fields: ' + JSON.stringify(updateObj, null, 4));
 
 //    override the document with the current state
     doc.update(updateObj, {

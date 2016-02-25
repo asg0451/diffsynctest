@@ -12,9 +12,9 @@ var app = express();
 
 ////
 
-var database = require('./database.js')(); // doc model
-var sqliteDataAdapter = require('./sequelize-adapter.js'); // adapter as per example
-var diffSyncSetupAdapter = require('./diff-sync-stuff.js')(app, sqliteDataAdapter, database); // returns dataAdapter
+var database = require('./libs/database.js')(); // doc model
+var sqliteDataAdapter = require('./libs/sequelize-adapter.js'); // adapter as per example
+var diffSyncSetup = require('./libs/diff-sync-stuff.js')(app, sqliteDataAdapter, database); // returns dataAdapter
 
 /////
 
