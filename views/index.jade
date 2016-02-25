@@ -3,6 +3,10 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+  p enter diff sync id and press button to start syncing
+  input#dsIdEntry(type='text')
+  input#startSyncButton(type='button', value='start sync', onclick='startSync()')
+  p enter text to be synced
   textarea#dataArea
 
 block otherincludes
