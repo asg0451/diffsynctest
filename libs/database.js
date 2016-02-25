@@ -1,3 +1,5 @@
+var model = require('../models/ds-model.js').model;
+
 var setupDB = function() {
     console.log('setting up db');
 
@@ -15,8 +17,6 @@ var setupDB = function() {
         // SQLite only
         storage: './dstest.sqlite'
     });
-
-    var model = require('../models/ds-model.js').model;
 
     var Doc = sequelize.define('doc', model, {
         freezeTableName: true // Model tableName will be the same as the model name
