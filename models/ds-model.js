@@ -18,13 +18,16 @@ var syncModel = {
     }
 };
 
-var fields = [];
-for (var name in syncModel) {
-    if (syncModel.hasOwnProperty(name) && name !== '_id') {
-        fields.push(name);
+var getFields = function(model) {
+    var fields = [];
+    for (var name in model) {
+        if (syncModel.hasOwnProperty(name) && name !== '_id') {
+            fields.push(name);
+        }
     }
+    return fields;
 }
 
-console.log('model has props: ' + fields);
+console.log('model has props: ' + getFields(syncModel));
 
-module.exports = {model: syncModel, fields: fields};
+module.exports = {model: syncModel, fields: getFields(syncModel)};
