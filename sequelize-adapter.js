@@ -1,3 +1,5 @@
+var modelInfo = require('./ds-model.js');
+
 var SqliteDataAdapter = function(database){
     if(!database){ throw new Error('Need to specify a database'); }
     this.database = database;
@@ -36,13 +38,21 @@ SqliteDataAdapter.prototype.storeData = function(id, data, callback){
     console.log('storing data with id ' + id + ': '+ JSON.stringify(data, null, 4));
 
     var doc = this.database;
-    var tv = data.textValue;
+    //    var tv = data.textValue;
+    var updateObj = {};
+    for(f of modelInfo.fields) {
+        if(data.hasOwnProperty(f)) { // only update things data actually has (bad idea?)
+            console.log('updating '+ f);
+            updateObj[f] = data[f];
+        }
+    }
+
+    console.log('uo: ' + JSON.stringify(updateObj, null, 4));
+
     var retval = {};
 
 //    override the document with the current state
-    doc.update({
-        textValue: tv
-    }, {
+    doc.update(updateObj, {
         where: {
             _id: id
         }

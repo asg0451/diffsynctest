@@ -34,7 +34,7 @@ var syncTextArea = function() {
     client.sync();
 }
 
-setInterval(syncTextArea, 350);
+setInterval(syncTextArea, 5000);
 
 document.onload = function() {
     data = {

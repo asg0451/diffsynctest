@@ -16,19 +16,13 @@ var setupDB = function() {
         storage: './dstest.sqlite'
     });
 
-    var Doc = sequelize.define('doc', {
-        textValue: {
-            type: Sequelize.STRING,
-            defaultValue: 'fillertext'
-        },
-        _id: { // diffsync id
-            type: Sequelize.STRING,
-            field: '_id'
-        }
-    }, {
+    var model = require('./ds-model.js').model;
+
+    var Doc = sequelize.define('doc', model, {
         freezeTableName: true // Model tableName will be the same as the model name
     });
 
+    // force migration
     Doc.sync({force: true}).then(function () {
         //no initial content right now
     });
