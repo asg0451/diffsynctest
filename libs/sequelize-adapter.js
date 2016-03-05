@@ -21,7 +21,13 @@ SqliteDataAdapter.prototype.getData = function(id, callback){
                 _id: id
             }).then(newData => {
                 console.log('new entry: ' + JSON.stringify(newData, null, 4));
-                callback(null, {textValue: newData.textValue});
+                var syncObj = {};
+                for(f of modelInfo.fields) {
+                    if(newData.hasOwnProperty(f)) {
+                        syncObj[f] = newData[f];
+                    }
+                }
+                callback(null, syncObj);
             });
         }
         else {
@@ -33,7 +39,6 @@ SqliteDataAdapter.prototype.getData = function(id, callback){
 };
 
 SqliteDataAdapter.prototype.storeData = function(id, data, callback){
-
     console.log('storing data with id ' + id + ': '+ JSON.stringify(data, null, 4));
 
     var doc = this.database;
@@ -46,7 +51,7 @@ SqliteDataAdapter.prototype.storeData = function(id, data, callback){
         }
     }
 
-    console.log('updating fields: ' + JSON.stringify(updateObj, null, 4));
+    console.log('updating fields of ' + id + ': ' + JSON.stringify(updateObj, null, 4));
 
 //    override the document with the current state
     doc.update(updateObj, {

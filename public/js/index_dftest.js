@@ -42,7 +42,7 @@ var syncTextArea = function() {
     client.sync();
 }
 
-setInterval(syncTextArea, 5000);
+setInterval(syncTextArea, 500);
 
 document.onload = function() {
     data = {
