@@ -24,6 +24,7 @@ var startSync = function () {
             // you can perform the updates in your application now
             if(!textarea) textarea = document.getElementById('dataArea');
             textarea.value = data.textValue;
+//            console.log('synced', data);
         });
 
         client.initialize();
